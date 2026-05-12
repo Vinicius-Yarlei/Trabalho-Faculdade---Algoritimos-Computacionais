@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float distancia, consumo, preco, capacidade;
+    float autonomia, litros_gastos, sobra;
+    float custo_ida, custo_total;
+    
+    int ar_ligado;
+
+    // Entrada de dados
+    printf("Distancia da viagem (km): ");
+    scanf("%f", &distancia);
+
+    printf("Consumo do carro na gasolina (km/l): ");
+    scanf("%f", &consumo);
+
+    printf("Capacidade do tanque (litros): ");
+    scanf("%f", &capacidade);
+
+    printf("Preco do litro da gasolina: R$ ");
+    scanf("%f", &preco);
+
+    printf("Ar-condicionado ligado? (1-Sim / 0-Nao): ");
+    scanf("%d", &ar_ligado);
+
+    // Ajuste de consumo apenas pelo Ar-condicionado
+    float consumo_ajustado = consumo;
+    
+    if (ar_ligado == 1) {
+        consumo_ajustado *= 0.85; // Ar consome cerca de 15% mais
+    }
+
+    // Cálculos
+    autonomia = capacidade * consumo_ajustado;
+    litros_gastos = distancia / consumo_ajustado;
+    sobra = capacidade - litros_gastos;
+    custo_ida = litros_gastos * preco;
+    custo_total = custo_ida * 2;
+
+    // Saída
+    printf("\n--- RESULTADO FINAL ---");
+    printf("\nConsumo real (com ar): %.2f km/l", consumo_ajustado);
+    printf("\nAutonomia do tanque: %.2f km", autonomia);
+    printf("\nLitros gastos na ida: %.2f L", litros_gastos);
+    printf("\nCusto total (ida e volta): R$ %.2f\n", custo_total);
+
+    if (litros_gastos > capacidade) {
+        printf("\nAtencao: Necessario abastecer durante o trajeto.\n");
+    } else {
+        printf("\nO tanque atual e suficiente para a ida.\n");
+    }
+
+    return 0;
+}
